@@ -10,7 +10,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('auth.loginForm');
+        return redirect()->route('login');
     }
 
     public function loginForm()
@@ -28,7 +28,7 @@ class AuthController extends Controller
         if ($loginWasSuccessful) {
             return redirect()->route('profile.index');
         } else {
-            return redirect()->route('auth.loginForm')->with('error', 'Invalid credentials.');
+            return redirect()->route('login')->with('error', 'Invalid credentials.');
         }
     }
 }
