@@ -27,6 +27,12 @@ Route::get('/login', [AuthController::class, 'loginForm'])->name('login'); // in
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    // Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+
+    Route::middleware(['deny-blocked-users'])->group(function () {
+        Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+
+        Route::view('/blocked', 'blocked')->name('blocked');
+    });
 });
